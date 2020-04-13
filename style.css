@@ -9,28 +9,29 @@ body {
 h1{
     margin: .5em 0 1em;
 }
-table {
+#grid {
     margin:auto;
     border-spacing: 0;
     border-collapse: collapse;
 }
-td{
-    border:1px solid gray;
-  
-}
+    #grid td{
+        border:1px solid gray;
+    
+    }
 
-input[type="checkbox"]{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    display: block;
-    width: 20px;
-    height: 20px;
-    border:0;
-    background-color:white;
-}
 
-input[type="checkbox"]:checked{
-    background:black;
-    box-shadow: 0 0 0 99px black inset;
-}
+    #grid input[type="checkbox"]{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: block;
+        width: 20px;
+        height: 20px;
+        border:0;
+        background-color:white;
+    }
+
+    #grid input[type="checkbox"]:checked{
+        background:black;
+        box-shadow: 0 0 0 99px black inset;
+    }

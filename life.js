@@ -1,3 +1,7 @@
+function $(selector, container){
+    return (container || document).querySelector(selector);
+}
+
 (function() {
     var _ = self.Life = function (seed){
         this.seed = seed;
@@ -101,11 +105,14 @@ console.log(game + '');*/
     var _ = self.LifeView = function( table, size){
         this.grid = table;
         this.size = size;
+        this.started = false;
+        this.autoplay = false;
         this.createGrid();
     };
 
     _.prototype = {
         createGrid: function (){
+            var me = this;
             var fragment = document.createDocumentFragment(); //https://developer.mozilla.org/es/docs/Web/API/Document/createDocumentFragment
             this.grid.innerHTML = '';
             this.checkboxes = [];
@@ -125,6 +132,11 @@ console.log(game + '');*/
                 }
                 fragment.appendChild(row);
             }
+            this.grid.addEventListener('change', function(evt){
+                if(evt.target.nodeName.toLowerCase() =="input"){
+                    me.started = false;
+                }
+            });
             this.grid.appendChild(fragment);
         },
         get boardArray(){
@@ -136,8 +148,14 @@ console.log(game + '');*/
         },
         play: function () {
             this.game = new Life(this.boardArray);
+            this.started = true;
         },
+       
         next: function() {
+            var me = this;
+            if(!this.started || this.game){
+                this.play();
+            }
             this.game.next();
             var board = this.game.board;
 
@@ -146,6 +164,12 @@ console.log(game + '');*/
                    this.checkboxes[y][x].checked = !!board[y][x];
                }
            }
+
+           if(this.autoplay){
+               this.timer = setTimeout(function (){
+                me.next();
+               }, 1000);
+           }
         },
 
     };            
@@ -153,3 +177,24 @@ console.log(game + '');*/
     })();
 
     var lifeView =new LifeView(document.getElementById('grid'),12);
+
+    (function (){
+        var buttons = {
+            next:$('button.next')
+        };
+
+    $('button.next').addEventListener('click', function() {
+        lifeView.next();
+    });
+
+    $('#autoplay').addEventListener('change', function() {
+        buttons.next.textContent = this.checked? 'Start': 'Next';
+
+        lifeView.autoplay = this.checked;
+
+        if(!this.checked){
+            clearTimeout(lifeView.timer);
+        }
+    });
+
+})();
