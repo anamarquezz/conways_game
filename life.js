@@ -126,7 +126,7 @@ console.log(game + '');*/
                     var checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
                     this.checkboxes[y][x] = checkbox;
-                    checkbox.coors = [y,x];
+                    checkbox.coords = [y, x];
 
                     cell.appendChild(checkbox);
                     row.appendChild(cell);
@@ -158,8 +158,9 @@ console.log(game + '');*/
                         if(y > 0){
                             me.checkboxes[y-1][x].focus();
                         }
+                        break;
                         case 39: //right
-                        if(x < me.size + 1){
+                        if(x < me.size - 1){
                             me.checkboxes[y][x+1].focus();
                         }
                             break;
@@ -167,6 +168,7 @@ console.log(game + '');*/
                         if(y < me.size - 1){
                             me.checkboxes[y+1][x].focus();
                         }
+                        break;
 
                     }
                    
