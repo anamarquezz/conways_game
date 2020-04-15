@@ -225,13 +225,17 @@ console.log(game + '');*/
     });
 
     $('#autoplay').addEventListener('change', function() {
-        buttons.next.textContent = this.checked? 'Start': 'Next';
+        buttons.next.disabled = this.checked;
 
-        lifeView.autoplay = this.checked;
+      
 
-        if(!this.checked){
+        if(this.checked){
+            lifeView.autoplay = this.checked;
+            lifeView.next();
+        }else{            
             clearTimeout(lifeView.timer);
         }
+        
     });
 
 })();
